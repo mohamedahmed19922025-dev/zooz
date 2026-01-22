@@ -11,7 +11,15 @@ event = st.dataframe(
     on_select="rerun",
     selection_mode="multi-row",
 )
-                   
+if st.button("Delete Selected Rows"):
+    if event and "selection" in event and "rows" in event["selection"]:
+        selected = event["selection"]["rows"]
+        df = df.drop(index=selected).reset_index(drop=True)
+        df.to_excel("55.xlsx", index=False)
+        st.rerun()
+    else:
+        st.warning("No rows selected!")                  
+
 
 
 
